@@ -13,16 +13,17 @@ end
 # holder for place to compare to
 def choose_place_name
   cities = load_list
-  cities.sample
+  index = rand(cities.length)
+
+  city = cities[index]
+  "#{city["Place"][0..-6]}, #{city["State"]}"
+  # binding.pry
 end
 
 def load_list
-	cities = []
-  CSV.foreach('cities_list_formatted.csv', headers: true, header_converters: :symbol) do |city|
-  	cities << {rank: city['rank'], place: city['place'], 
-  		state: city['state'], census: city['census']}
-  end
-  binding.pry
+	cities = CSV.read('cities_list.csv', headers: true) # do |city|
+
+
   cities
 end
 
