@@ -15,8 +15,16 @@ map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 
 map.on('click', function(e) {
-  alert(e.latlng);
+  $.get(
+    "/guess",
+    {lat : e.latlng.lat, lng : e.latlng.lng},
+    function(data) {
+      alert('page content: ' + data);
+    }
+  );
 });
+
+
 
 </script>
 </div>
