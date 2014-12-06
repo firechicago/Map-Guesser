@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'sinatra-reloader'
 gem 'pg'
+gem 'openssl'
+gem 'geokit'
+
+
 
 group :development, :test do
   gem 'pry'
