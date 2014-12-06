@@ -1,0 +1,22 @@
+<div class="row"><h1>Can you find <%=@place_name%>?</h1></div>
+
+
+<div class="row">
+<div id='map'></div>
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiY2hyaXN3YW5kIiwiYSI6Ii15YVZETmcifQ.iwFzK-RnFcNDU_msz06eQQ';
+var map = L.mapbox.map('map', 'chriswand.kdmfjpp4', {zoomControl: false})
+.setView([39.83, -98.50], 4);
+
+// Disable drag and zoom handlers.
+map.dragging.disable();
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
+map.scrollWheelZoom.disable();
+
+map.on('click', function(e) {
+  alert(e.latlng);
+});
+
+</script>
+</div>
