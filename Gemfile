@@ -5,6 +5,8 @@ gem 'sinatra-reloader'
 gem 'pg'
 gem 'openssl'
 gem 'geokit'
+gem 'rake'
+
 
 
 

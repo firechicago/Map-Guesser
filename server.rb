@@ -1,10 +1,8 @@
 require 'sinatra'
 require 'sinatra/reloader'
-require 'pg'
-require 'sinatra/activerecord'
-require 'pry'
 require 'openssl'
 require 'geokit'
+require 'csv'
 
 configure :development, :test do
   require 'pry'
@@ -12,7 +10,14 @@ end
 
 # holder for place to compare to
 def choose_place_name
-  ['Somerville, Massachusetts', 'Las Vegas, Nevada'].sample
+  cities = load_list
+  index = rand(cities.length)
+  city = cities[index]
+  "#{city['Place'][0..-6]}, #{city['State']}"
+end
+
+def load_list
+  CSV.read('cities_list.csv', headers: true) # do |city|
 end
 
 # compares the distance between to lat-long points and returns miles between
@@ -28,7 +33,9 @@ end
 get '/' do
   @place_name = choose_place_name
   @place_name_ll = get_lat_long(@place_name)
+
   erb :'index'
+
 end
 
 get '/guess' do
