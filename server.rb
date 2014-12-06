@@ -12,7 +12,7 @@ end
 
 # holder for place to compare to
 def choose_place_name
-  cities ||= cities.load_list
+  cities = load_list
   cities.sample
 end
 
@@ -22,6 +22,7 @@ def load_list
   	cities << {rank: city['rank'], place: city['place'], 
   		state: city['state'], census: city['census']}
   end
+  binding.pry
   cities
 end
 
@@ -41,6 +42,8 @@ end
 get '/' do
   @place_name = choose_place_name
   @place_name_ll = get_lat_long(@place_name)
+  
   erb :'index'
+
 end
 
