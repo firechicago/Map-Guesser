@@ -2,6 +2,8 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'pg'
 require 'sinatra/activerecord'
+require 'openssl'
+require 'geokit'
 
 configure :development, :test do
   require 'pry'
