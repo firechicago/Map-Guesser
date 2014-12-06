@@ -13,10 +13,10 @@ var map = L.mapbox.map('map', 'chriswand.kdmfjpp4', {zoomControl: false})
 
 
 // Disable drag and zoom handlers.
-map.dragging.disable();
-map.touchZoom.disable();
-map.doubleClickZoom.disable();
-map.scrollWheelZoom.disable();
+// map.dragging.disable();
+// map.touchZoom.disable();
+// map.doubleClickZoom.disable();
+// map.scrollWheelZoom.disable();
 
 map.on('click', function(e) {
   $.get(
@@ -34,7 +34,7 @@ map.on('click', function(e) {
             parseFloat(data_array[0])
           ]
         },
-        properties: {  }
+        properties: { 'marker-color' : '#FF0000' }
       },
       {
         type: 'Feature',
@@ -45,11 +45,20 @@ map.on('click', function(e) {
           parseFloat(data_array[2])
           ]
         },
-        properties: {  }
+        properties: {'marker-color' : '#00FF00' }
       }]
       ;
 
       L.mapbox.featureLayer(markerOptions).addTo(map);
+
+      var line_points = [
+      [parseFloat(data_array[0]), parseFloat(data_array[1])],
+      [parseFloat(data_array[2]), parseFloat(data_array[3])]
+      ];
+
+      L.polyline(line_points, {
+        color: '#f00'
+      }).addTo(map);
 
       alert('Your guess was off by ' + data_array[4] + ' miles');
     }
