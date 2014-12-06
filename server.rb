@@ -4,6 +4,7 @@ require 'pg'
 require 'sinatra/activerecord'
 require 'openssl'
 require 'geokit'
+require 'csv'
 
 configure :development, :test do
   require 'pry'
@@ -11,7 +12,17 @@ end
 
 # holder for place to compare to
 def choose_place_name
-  'Somerville, Massachusetts'
+  cities ||= cities.load_list
+  cities.sample
+end
+
+def load_list
+	cities = []
+  CSV.foreach('cities_list_formatted.csv', headers: true, header_converters: :symbol) do |city|
+  	cities << {rank: city['rank'], place: city['place'], 
+  		state: city['state'], census: city['census']}
+  end
+  cities
 end
 
 # compares the distance between to lat-long points and returns miles between
@@ -23,6 +34,7 @@ end
 def get_lat_long (location)
 		Geokit::Geocoders::GoogleGeocoder.geocode '#{location}'
 end
+
 
 
 
