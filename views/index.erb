@@ -8,6 +8,11 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiY2hyaXN3YW5kIiwiYSI6Ii15YVZETmcifQ.iwFzK-RnFc
 var map = L.mapbox.map('map', 'chriswand.kdmfjpp4', {zoomControl: false})
 .setView([39.83, -98.50], 4);
 
+
+
+
+
+
 // Disable drag and zoom handlers.
 map.dragging.disable();
 map.touchZoom.disable();
@@ -17,9 +22,34 @@ map.scrollWheelZoom.disable();
 map.on('click', function(e) {
   $.get(
     "/guess",
-    {lat : e.latlng.lat, lng : e.latlng.lng},
+    {lat : e.latlng.lat, lng : e.latlng.lng, location : '<%=@place_name%>'},
     function(data) {
-      alert('page content: ' + data);
+      var data_array = data.split(" ");
+
+
+      var geojson = [
+      {
+        "type": "FeatureCollection",
+        "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+            data_array[0],
+            data_array[1]
+            ]
+          },
+          "properties": {}
+        }
+        ]
+      }
+      ];
+      debugger;
+      var myLayer = L.mapbox.featureLayer().addTo(map);
+      myLayer.setGeoJSON(geojson);
+
+      alert(data_array[2]);
     }
   );
 });
