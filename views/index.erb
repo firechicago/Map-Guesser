@@ -12,7 +12,6 @@ var map = L.mapbox.map('map', 'chriswand.kdmfjpp4', {zoomControl: false})
 
 
 
-
 // Disable drag and zoom handlers.
 map.dragging.disable();
 map.touchZoom.disable();
@@ -26,30 +25,33 @@ map.on('click', function(e) {
     function(data) {
       var data_array = data.split(" ");
 
-
-      var geojson = [
+      var markerOptions = [{
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [
+            parseFloat(data_array[1]),
+            parseFloat(data_array[0])
+          ]
+        },
+        properties: {  }
+      },
       {
-        "type": "FeatureCollection",
-        "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-            data_array[0],
-            data_array[1]
-            ]
-          },
-          "properties": {}
-        }
-        ]
-      }
-      ];
-      debugger;
-      var myLayer = L.mapbox.featureLayer().addTo(map);
-      myLayer.setGeoJSON(geojson);
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [
+          parseFloat(data_array[3]),
+          parseFloat(data_array[2])
+          ]
+        },
+        properties: {  }
+      }]
+      ;
 
-      alert(data_array[2]);
+      L.mapbox.featureLayer(markerOptions).addTo(map);
+
+      alert('Your guess was off by ' + data_array[4] + ' miles');
     }
   );
 });

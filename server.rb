@@ -35,5 +35,5 @@ get '/guess' do
   @place = get_lat_long(params['location'])
   @guess = get_lat_long("#{params['lat']}, #{params['lng']}")
   distance = compare_locations(@guess, @place).to_s
-  "#{@place.lat} #{@place.lng} #{distance}"
+  "#{@place.lat} #{@place.lng} #{params['lat']} #{params['lng']} #{distance}"
 end
