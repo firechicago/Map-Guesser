@@ -60,7 +60,8 @@ map.on('click', function(e) {
         color: '#f00'
       }).addTo(map);
 
-      alert('Your guess was off by ' + data_array[4] + ' miles');
+      if(alert('Your guess was off by ' + data_array[4] + ' miles')){}
+        else window.location.reload();
     }
   );
 });
